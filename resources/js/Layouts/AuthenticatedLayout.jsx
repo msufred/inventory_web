@@ -4,10 +4,10 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
-import { Box, Breadcrumbs, CssBaseline, CssVarsProvider } from '@mui/joy';
+import { Box, Breadcrumbs, CssBaseline, CssVarsProvider, Typography } from '@mui/joy';
 import Header from '@/Components/Header';
 import Sidebar from '@/Components/Sidebar';
-import { ChevronRightRounded, HomeRounded } from '@mui/icons-material';
+import { ChevronRightRounded, Dashboard, HomeRounded } from '@mui/icons-material';
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
@@ -38,6 +38,7 @@ export default function Authenticated({ user, header, children }) {
                         gap: 1
                     }}
                 >
+
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Breadcrumbs size='sm' aria-label='breadcrumbs' separator={<ChevronRightRounded fontSize='sm' />} sx={{ pl: 0 }}>
                             <Link
@@ -48,8 +49,31 @@ export default function Authenticated({ user, header, children }) {
                             >
                                 <HomeRounded />
                             </Link>
+                            <Link
+                                underline="hover"
+                                color="neutral"
+                                href="#"
+                                fontSize={12}
+                                fontWeight={500}
+                            >
+                                Dashboard
+                            </Link>
+                            <Typography color='primary' fontWeight={500} fontSize={12}>
+                                Orders
+                            </Typography>
                         </Breadcrumbs>
                     </Box>
+
+                    <Box sx={{
+                        display: 'flex',
+                        mb: 1,
+                        gap: 1,
+                        flexDirection: { xs: 'column', sm: 'row' },
+                        alignItems: { xs: 'start', sm: 'center' }
+                    }}>
+
+                    </Box>
+
                 </Box>
             </Box>
         </CssVarsProvider>

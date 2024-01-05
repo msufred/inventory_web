@@ -4,7 +4,7 @@ import { closeSidebar } from "../utils.js";
 import { Avatar, Box, Divider, GlobalStyles, IconButton, Input, List, ListItem, ListItemButton, ListItemContent, Sheet, Typography, listItemButtonClasses } from "@mui/joy";
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { BrightnessAutoRounded, DashboardRounded, GroupRounded, HomeRounded, LogoutRounded, SearchRounded } from "@mui/icons-material";
+import { BrightnessAutoRounded, DashboardRounded, GroupRounded, HomeRounded, LocalShippingRounded, LogoutRounded, MoveDownRounded, SearchRounded, ShoppingCartRounded, WarehouseRounded } from "@mui/icons-material";
 import { usePage } from "@inertiajs/react";
 
 function Toggler({ defaultExpaded = false, text, icon, children }) {
@@ -62,9 +62,9 @@ export default function Sidebar() {
         >
             <GlobalStyles styles={(theme) => ({
                 ':root': {
-                    '--Sidebar-width': '220px',
+                    '--Sidebar-width': '250px',
                     [theme.breakpoints.up('lg')]: {
-                        '--Sidebar-width': '240px'
+                        '--Sidebar-width': '260px'
                     }
                 }
             })} />
@@ -118,22 +118,73 @@ export default function Sidebar() {
                     '--List-nestedInsetStart': '30px',
                     '--ListItem-radius': (theme) => theme.vars.radius.sm
                 }}>
-                    {/* Home */}
-                    <ListItem>
-                        <ListItemButton>
-                            <HomeRounded />
-                            <ListItemContent>
-                                <Typography level="title-sm">Home</Typography>
-                            </ListItemContent>
-                        </ListItemButton>
-                    </ListItem>
-
                     {/* Dashboard */}
                     <ListItem>
                         <ListItemButton>
                             <DashboardRounded />
                             <ListItemContent>
                                 <Typography level="title-sm">Dashboard</Typography>
+                            </ListItemContent>
+                        </ListItemButton>
+                    </ListItem>
+
+                    {/* Purchases */}
+                    <ListItem>
+                        <ListItemButton component="a" href="#">
+                            <ShoppingCartRounded />
+                            <ListItemContent>
+                                <Typography level="title-sm">Purchases</Typography>
+                            </ListItemContent>
+                        </ListItemButton>
+                    </ListItem>
+
+                    {/* Withdrawals */}
+                    <ListItem>
+                        <ListItemButton>
+                            <MoveDownRounded />
+                            <ListItemContent>
+                                <Typography level="title-sm">Withdrawals</Typography>
+                            </ListItemContent>
+                        </ListItemButton>
+                    </ListItem>
+
+                    <Divider sx={{
+                        mt: 4,
+                        mb: 4
+                    }}/>
+
+                    <ListItem>
+                        <ListItemButton>
+                            <WarehouseRounded />
+                            <ListItemContent>
+                                <Typography level="title-sm">My Warehouses</Typography>
+                            </ListItemContent>
+                        </ListItemButton>
+                    </ListItem>
+
+                    <ListItem>
+                        <ListItemButton>
+                            <LocalShippingRounded />
+                            <ListItemContent>
+                                <Typography level="title-sm">My Trucks</Typography>
+                            </ListItemContent>
+                        </ListItemButton>
+                    </ListItem>
+
+                    <ListItem>
+                        <ListItemButton>
+                            <GroupRounded />
+                            <ListItemContent>
+                                <Typography level="title-sm">My Suppliers</Typography>
+                            </ListItemContent>
+                        </ListItemButton>
+                    </ListItem>
+
+                    <ListItem>
+                        <ListItemButton>
+                            <GroupRounded />
+                            <ListItemContent>
+                                <Typography level="title-sm">My Customers</Typography>
                             </ListItemContent>
                         </ListItemButton>
                     </ListItem>
