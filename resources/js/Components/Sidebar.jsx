@@ -4,8 +4,10 @@ import { closeSidebar } from "../utils.js";
 import { Avatar, Box, Divider, GlobalStyles, IconButton, Input, List, ListItem, ListItemButton, ListItemContent, Sheet, Typography, listItemButtonClasses } from "@mui/joy";
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { BrightnessAutoRounded, DashboardRounded, GroupRounded, HomeRounded, LocalShippingRounded, LogoutRounded, MoveDownRounded, SearchRounded, ShoppingCartRounded, WarehouseRounded } from "@mui/icons-material";
-import { usePage } from "@inertiajs/react";
+import { BrightnessAutoRounded, DashboardRounded, GroupRounded, HomeRounded, LocalShippingRounded, LogoutRounded, MoveDownRounded, PersonRounded, SearchRounded, ShoppingCartRounded, WarehouseRounded } from "@mui/icons-material";
+import { Link, usePage } from "@inertiajs/react";
+import NavLink from "./NavLink";
+import SidebarLink from "./SidebarLink";
 
 function Toggler({ defaultExpaded = false, text, icon, children }) {
     const [open, setOpen] = useState(defaultExpaded);
@@ -36,6 +38,7 @@ export default function Sidebar() {
     const user = usePage().props.auth.user;
     const name = user.name;
     const email = user.email;
+    const role = user.role;
 
     return (
         <Sheet
@@ -119,14 +122,13 @@ export default function Sidebar() {
                     '--ListItem-radius': (theme) => theme.vars.radius.sm
                 }}>
                     {/* Dashboard */}
-                    <ListItem>
-                        <ListItemButton>
-                            <DashboardRounded />
-                            <ListItemContent>
-                                <Typography level="title-sm">Dashboard</Typography>
-                            </ListItemContent>
-                        </ListItemButton>
-                    </ListItem>
+                    <SidebarLink
+                        href={route('dashboard')}
+                        icon={<DashboardRounded />}
+                        active={route().current('dashboard')}
+                    >
+                        <Typography level="title-sm">Dashboard</Typography>
+                    </SidebarLink>
 
                     {/* Purchases */}
                     <ListItem>
@@ -153,49 +155,47 @@ export default function Sidebar() {
                         mb: 4
                     }}/>
 
-                    <ListItem>
-                        <ListItemButton>
-                            <WarehouseRounded />
-                            <ListItemContent>
-                                <Typography level="title-sm">My Warehouses</Typography>
-                            </ListItemContent>
-                        </ListItemButton>
-                    </ListItem>
+                    <SidebarLink
+                        href={route('warehouse.index')}
+                        icon={<WarehouseRounded />}
+                        active={route().current('warehouse.index')}
+                    >
+                        <Typography level="title-sm">My Warehouses</Typography>
+                    </SidebarLink>
 
-                    <ListItem>
-                        <ListItemButton>
-                            <LocalShippingRounded />
-                            <ListItemContent>
-                                <Typography level="title-sm">My Trucks</Typography>
-                            </ListItemContent>
-                        </ListItemButton>
-                    </ListItem>
+                    <SidebarLink
+                        href=""
+                        icon={<LocalShippingRounded />}
+                        active={false}
+                    >
+                        <Typography level="title-sm">My Trucks</Typography>
+                    </SidebarLink>
 
-                    <ListItem>
-                        <ListItemButton>
-                            <GroupRounded />
-                            <ListItemContent>
-                                <Typography level="title-sm">My Suppliers</Typography>
-                            </ListItemContent>
-                        </ListItemButton>
-                    </ListItem>
+                    <SidebarLink
+                        href=""
+                        icon={<GroupRounded />}
+                        active={false}
+                    >
+                        <Typography level="title-sm">My Suppliers</Typography>
+                    </SidebarLink>
 
-                    <ListItem>
-                        <ListItemButton>
-                            <GroupRounded />
-                            <ListItemContent>
-                                <Typography level="title-sm">My Customers</Typography>
-                            </ListItemContent>
-                        </ListItemButton>
-                    </ListItem>
+                    <SidebarLink
+                        href=""
+                        icon={<GroupRounded />}
+                        active={false}
+                    >
+                        <Typography level="title-sm">My Customers</Typography>
+                    </SidebarLink>
 
-                    <Toggler text="Users" icon={<GroupRounded />}>
+                    <Toggler text="Users" icon={<PersonRounded />}>
                         <List sx={{ gap: 0.5 }}>
-                            <ListItem sx={{ mt: 0.5 }}>
-                                <ListItemButton role="menuitem" component="a" href={route('profile.edit')}>
-                                    My Profile
-                                </ListItemButton>
-                            </ListItem>
+                            <SidebarLink
+                                sx={{ mt: 0.5 }}
+                                href={route('profile.edit')}
+                                active={route().current('profile.edit')}
+                            >
+                                <Typography level="title-sm">My Profile</Typography>
+                            </SidebarLink>
                             <ListItem>
                                 <ListItemButton>
                                     Manage Users
@@ -218,9 +218,11 @@ export default function Sidebar() {
                     <Typography level="title-sm">{name}</Typography>
                     <Typography level="body-xs">{email}</Typography>
                 </Box>
-                <IconButton size="sm" variant="plain" color="neutral">
-                    <LogoutRounded />
-                </IconButton>
+                <Link method="post" href={route('logout')}>
+                    <IconButton size="sm" variant="plain" color="neutral">
+                        <LogoutRounded />
+                    </IconButton>
+                </Link>
             </Box>
         </Sheet>
     );

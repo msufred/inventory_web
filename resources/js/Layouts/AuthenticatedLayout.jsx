@@ -10,14 +10,12 @@ import Sidebar from '@/Components/Sidebar';
 import { ChevronRightRounded, Dashboard, HomeRounded } from '@mui/icons-material';
 
 export default function Authenticated({ user, header, children }) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
-
     return (
         <CssVarsProvider disableTransitionOnChange>
             <CssBaseline />
             <Box sx={{ display: 'flex', minHeight: '100dvh' }}>
                 <Header />
-                <Sidebar />
+                <Sidebar auth={user} />
 
                 <Box
                     component="main"
@@ -58,8 +56,8 @@ export default function Authenticated({ user, header, children }) {
                             >
                                 Dashboard
                             </Link>
-                            <Typography color='primary' fontWeight={500} fontSize={12}>
-                                Orders
+                            <Typography color='primary' fontWeight={500} fontSize={14}>
+                                {header}
                             </Typography>
                         </Breadcrumbs>
                     </Box>
@@ -71,7 +69,7 @@ export default function Authenticated({ user, header, children }) {
                         flexDirection: { xs: 'column', sm: 'row' },
                         alignItems: { xs: 'start', sm: 'center' }
                     }}>
-
+                        {children}
                     </Box>
 
                 </Box>
